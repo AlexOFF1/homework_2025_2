@@ -14,7 +14,7 @@
         ];
  * 
  * @example
- *
+ * 
  * groupBy(data);
  * //result: 
  * {
@@ -27,12 +27,18 @@
                 { id: 3, category: 'vegetable', name: 'carrot' },
                 { id: 5, category: 'vegetable', name: 'lettuce' }
             ]
- * }
- *
  *           
  * @returns {Object}
  */
 
 const groupBy = (data, key) => {
-    return Object.groupBy(data, item => item[key]);
+    return data.reduce((acc, item) => {
+        const groupKey = item[key];
+        
+        acc[groupKey] = acc[groupKey] || [];
+        
+        acc[groupKey].push(item);
+        
+        return acc;
+    }, {});
 };
