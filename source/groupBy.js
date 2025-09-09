@@ -5,32 +5,31 @@
  * @param {Array<Object>} data - массив объектов для группировки
  * @param {string} key - ключ объекта, по которому производится группировка
  * 
- * data = [
-            { id: 1, category: 'fruit', name: 'apple' },
-            { id: 2, category: 'fruit', name: 'banana' },
-            { id: 3, category: 'vegetable', name: 'carrot' },
-            { id: 4, category: 'fruit', name: 'orange' },
-            { id: 5, category: 'vegetable', name: 'lettuce' }
-        ];
- * 
  * @example
+ * const data = [
+ *     { id: 1, category: 'fruit', name: 'apple' },
+ *     { id: 2, category: 'fruit', name: 'banana' },
+ *     { id: 3, category: 'vegetable', name: 'carrot' },
+ *     { id: 4, category: 'fruit', name: 'orange' },
+ *     { id: 5, category: 'vegetable', name: 'lettuce' }
+ * ];
  * 
- * groupBy(data);
- * //result: 
+ * groupBy(data, 'category');
+ * // result: 
  * {
-        fruit: [
-                { id: 1, category: 'fruit', name: 'apple' },
-                { id: 2, category: 'fruit', name: 'banana' },
-                { id: 4, category: 'fruit', name: 'orange' }
-            ],
-        vegetable: [
-                { id: 3, category: 'vegetable', name: 'carrot' },
-                { id: 5, category: 'vegetable', name: 'lettuce' }
-            ]
+ *     fruit: [
+ *         { id: 1, category: 'fruit', name: 'apple' },
+ *         { id: 2, category: 'fruit', name: 'banana' },
+ *         { id: 4, category: 'fruit', name: 'orange' }
+ *     ],
+ *     vegetable: [
+ *         { id: 3, category: 'vegetable', name: 'carrot' },
+ *         { id: 5, category: 'vegetable', name: 'lettuce' }
+ *     ]
+ * }
  *           
- * @returns {Object}
+ * @returns {Object} объект сгруппированных данных по указанному ключу
  */
-
 const groupBy = (data, key) => {
     return data.reduce((acc, item) => {
         const groupKey = item[key];
