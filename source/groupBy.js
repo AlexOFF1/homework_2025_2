@@ -29,13 +29,36 @@
  * }
  *           
  * @returns {Object} объект сгруппированных данных по указанному ключу
+ * @throws {Error} если входные данные невалидны
  */
 const groupBy = (data, key) => {
+    if (!Array.isArray(data)) {
+        throw new Error('Первый аргумент должен быть массивом');
+    }
+    
+    if (typeof key !== 'string' || key.trim() === '') {
+        throw new Error('Второй аргумент должен быть непустой строкой');
+    }
+    
     return data.reduce((acc, item) => {
+        if (typeof item !== 'object' || item === null) {
+            console.warn('Элемент не является объектом и будет пропущен:', item);
+            return acc;
+        }
+        
+        if (!Object.prototype.hasOwnProperty.call(item, key)) {
+            console.warn('Объект не содержит ключ');
+            return acc;
+        }
+        
         const groupKey = item[key];
         
-        acc[groupKey] = acc[groupKey] || [];
+        if (groupKey === null || groupKey === undefined) {
+            console.warn('Значение ключа равно null/undefined');
+            return acc;
+        }
         
+        acc[groupKey] = acc[groupKey] || [];
         acc[groupKey].push(item);
         
         return acc;
